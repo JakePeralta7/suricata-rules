@@ -1,0 +1,12 @@
+alert enip any any -> 255.255.255.255 any ( \
+	msg:"Reconnaissance: ENIP list_identity with Broadcast Destination"; \
+	enip_command:99; \
+	sid:1; rev:1;)
+
+alert enip any any -> any any ( \
+	msg:"Malicious Master Password Rewrite"; \
+	content:"|0f|"; offset:53; depth:1; \
+	content:"|aa|"; offset:57; depth:1; \
+	content:"|00 03 00 10|"; offset:59; depth:4; \
+	reference:cve,CVE-2017-14466; \
+	sid:2; rev:1;)
